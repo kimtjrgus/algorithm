@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MemoryScore {
+public class MemoryScoreCalculator {
     public static int[] solution(String[] name, int[] yearning, String[][] photo) {
         int[] answer = new int[photo.length];
 

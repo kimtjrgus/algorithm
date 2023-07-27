@@ -3,7 +3,7 @@ package level1;
 import java.util.Arrays;
 import java.util.HashMap;
 
-class RunnigRace {
+public class SwapPlayersRank {
     public static String[] solution(String[] players, String[] callings) {
         String[] answer = Arrays.copyOf(players, players.length);
 
@@ -38,8 +38,8 @@ class RunnigRace {
         String[] callings = {"kai", "kai", "mine", "mine"};
 
         String[] answer = solution(players, callings);
-
-        System.out.println(Arrays.toString(answer)); // ["mumu", "kai", "mine", "soe", "poe"]
+        System.out.println(
+                "answer: "+ Arrays.toString(answer)); // ["mumu", "kai", "mine", "soe", "poe"]
     }
 }
 

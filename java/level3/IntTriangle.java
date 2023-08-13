@@ -5,10 +5,10 @@ import java.util.Arrays;
 public class IntTriangle { // DP 동적계획법 : 정수삼각형
     public static void main(String[] args) {
         int[][] triangle = new int[][]{{7}, {3, 8}, {8, 1, 0}, {2, 7, 4, 4}, {4, 5, 2, 6, 5}};
-
+        // 입력 예시
 
         System.out.println(solution(triangle));
-        //
+        // 출력
     }
 
     private static int solution(int[][] triangle) {

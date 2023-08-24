@@ -2,7 +2,7 @@ package etc.level1;
 
 import java.util.Arrays;
 
-public class ParkWalking {
+public class ParkWalking { // 진행중
     public static int[] solution(String[] park, String[] routes) {
         // S는 시작점, O는 통로, X는 장애물
         // E동 W서 S남 N북

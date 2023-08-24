@@ -1,8 +1,8 @@
-package level1;
+package etc.level1;
 
 import java.util.Arrays;
 
-public class Walking {
+public class ParkWalking {
     public static int[] solution(String[] park, String[] routes) {
         // S는 시작점, O는 통로, X는 장애물
         // E동 W서 S남 N북

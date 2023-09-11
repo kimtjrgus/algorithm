@@ -2,6 +2,7 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] A, int[] B) {
+        // 오름차순 정렬
         Arrays.sort(A);
         Arrays.sort(B);
  

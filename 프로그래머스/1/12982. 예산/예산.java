@@ -10,11 +10,11 @@ class Solution {
         
         Arrays.sort(d); // 오름차순 정렬
         for(int i=0; i<d.length; i++){
-            if(budget-d[i] >= 0){
-                budget -= d[i];
-                sum += d[i];
-                answer++;
-            }
+            budget -= d[i];
+            
+            if(budget < 0) break;
+            
+            answer++; // 예산이 남는다면 count++
         }
         
         return answer;

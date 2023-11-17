@@ -1,6 +1,5 @@
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.stream.*;
 
 class Solution {
     public int[] solution(int[] numbers) {
@@ -15,9 +14,10 @@ class Solution {
                 sumList.add(sum);
             }
         }
+        // sumList 중복제거
         List<Integer> answerList = sumList.stream()
                                 .distinct().collect(Collectors.toList());
-        
+        // list -> array /정렬
         int[] answer = answerList.stream().mapToInt(i->i).toArray();
         Arrays.sort(answer);
         

@@ -17,7 +17,6 @@ class Solution {
             
         }
         // 2. trio의 점수 비교
-        // 2. trio의 점수 비교
         List<Integer> resultList = new ArrayList<>();
         int max = Math.max(score[0], Math.max(score[1], score[2]));
 
@@ -27,7 +26,7 @@ class Solution {
             }
         }
 
-        // List to Array
+        // 3. List to Array
         int[] result = new int[resultList.size()];
         for (int i = 0; i < result.length; i++) {
             result[i] = resultList.get(i);

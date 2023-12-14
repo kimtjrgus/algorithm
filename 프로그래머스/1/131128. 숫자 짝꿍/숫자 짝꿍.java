@@ -2,7 +2,6 @@ import java.util.Arrays;
 
 class Solution {
     public String solution(String X, String Y) {
-        // 1. 맵핑 ?? 0~9 갯수 세기 ??
         // X, Y의 짝꿍이 존재X -> -1 
         // X, Y의 짝꿍이 0으로만 구성되어 있다면, -> 0
         
@@ -15,7 +14,7 @@ class Solution {
         // 2. 숫자 비교 후 일치할 경우 idx 감소
         StringBuilder answer = new StringBuilder();
         int idxX = charX.length -1;
-        int idxY = charY.length - 1;
+        int idxY = charY.length -1;
         
         while(idxX >= 0 && idxY >= 0){
             // 두수가 짝꿍을 이룰 경우

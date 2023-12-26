@@ -3,7 +3,7 @@ import java.util.HashMap;
 class Solution {
     public String solution(String[] participant, String[] completion) {
         // comp는 part보다 길이 1 짧음
-        // 동명이인이 있을 수 있음. 1명만 체크하라는 뜻인듯
+        // 동명이인이 있을 수 있음.
         String answer = ""; // answer = 완주 못한 선수
         
         // 1. 해시맵에 part 추가 key는 선수, value는 선수카운트
@@ -20,6 +20,7 @@ class Solution {
         for(String key : map.keySet()){
             if(map.get(key) != 0){
                 answer = key;
+                break;
             }
         }
         return answer;

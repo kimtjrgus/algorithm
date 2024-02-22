@@ -7,9 +7,12 @@ class Solution {
         int burgerCount = 0;
         
         Stack<Integer> stack = new Stack<Integer>();
+        
+        // 1. 스택에 재료 담기
         for(int in : ingredient){
             stack.push(in);
             
+            // 2. 스택 사이즈가 4 이상부터 순서대로라면 버거카운트+1 
             if(stack.size() >= 4){
                 if(stack.get(stack.size()-4) == 1 &&
                   stack.get(stack.size()-3) == 2 &&
@@ -17,9 +20,9 @@ class Solution {
                   stack.get(stack.size()-1) == 1){
                     burgerCount++;
                     
-                    for(int i=0; i<4; i++){
+                    // 완성된 버거재료 pop
+                    for(int i=0; i<4; i++) 
                         stack.pop();
-                    }
                 }
             }
         }

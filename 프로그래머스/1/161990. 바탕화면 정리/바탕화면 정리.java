@@ -7,29 +7,27 @@
 class Solution {
     public int[] solution(String[] wallpaper) {
         // 1. 드래그를 시작하기 위한 최소,최대값 점 초기화
-        int minX = Integer.MAX_VALUE; 
-        int minY = Integer.MAX_VALUE;
-        int maxX = Integer.MIN_VALUE; 
-        int maxY = Integer.MIN_VALUE;
+        int lux = Integer.MAX_VALUE; 
+        int luy = Integer.MAX_VALUE;
+        int rdx = Integer.MIN_VALUE; 
+        int rdy = Integer.MIN_VALUE;
         
         // 2. 각점의 인덱스값을 구함
-        // wallpaper 배열에서 파일위치 추출 ...#..
+        // wallpaper 배열에서 파일위치 추출
         for(int i = 0; i < wallpaper.length; i++){
-            String curFileLine = wallpaper[i];
-            
-            for(int j = 0; j < curFileLine.length(); j++) {
-                if(curFileLine.charAt(j) == '#') {
-                    // minX, minY, maxX, maxY 업데이트
-                    minX = Math.min(minX, j);
-                    minY = Math.min(minY, i);
-                    maxX = Math.max(maxX, j);
-                    maxY = Math.max(maxY, i);
+            for(int j = 0; j < wallpaper[i].length(); j++) {
+                if(wallpaper[i].charAt(j) == '#') {
+                    // lux, minY, maxX, maxY 업데이트
+                    lux = Math.min(lux, j);
+                    luy = Math.min(luy, i);
+                    rdx = Math.max(rdx, j);
+                    rdy = Math.max(rdy, i);
                 }
             }
         }
         
         // 3. max는 +1 씩(제일 외부를 포함시켜야하므로)
-        int[] answer = {minY, minX, maxY + 1, maxX + 1};
+        int[] answer = {luy, lux, rdy + 1, rdx + 1};
         
         return answer;
     }

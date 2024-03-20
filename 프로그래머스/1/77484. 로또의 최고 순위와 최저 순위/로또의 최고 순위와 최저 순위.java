@@ -11,7 +11,6 @@ class Solution {
     public int[] solution(int[] lottos, int[] win_nums) {
         int winCount = 0; // 당첨된 수
         int zeroCount = 0; // 0의 갯수 
-        int[] answer = new int[2];
 
         // 1. lottos 에서 0을 제외한 나머지가 당첨되는지 -> 몇개매칭
         for(int lotto : lottos){
@@ -27,52 +26,40 @@ class Solution {
                     }
                 }
             }
-            
-        }
-        // 1등:6/ 2등:5/ 3등:4/ 4등-3/ 5-2/ 6-1
-        switch(winCount + zeroCount) {
-            case 6:
-                answer[0] = 1;
-                break;
-            case 5:
-                answer[0] = 2;
-                break;
-            case 4:
-                answer[0] = 3;
-                break;
-            case 3:
-                answer[0] = 4;
-                break;
-            case 2:
-                answer[0] = 5;
-                break;
-            default:
-                answer[0] = 6;
-                break;
         }
         
-        // 최저 순위 계산
-        switch(winCount) {
-            case 6:
-                answer[1] = 1;
-                break;
-            case 5:
-                answer[1] = 2;
-                break;
-            case 4:
-                answer[1] = 3;
-                break;
-            case 3:
-                answer[1] = 4;
-                break;
-            case 2:
-                answer[1] = 5;
-                break;
-            default:
-                answer[1] = 6;
-                break;
-        }
+        int[] answer = new int[2];
+        // 최고 순위
+        answer[0] = getGrade(winCount + zeroCount);
+        // 최저 순위
+        answer[1] = getGrade(winCount);
         
         return answer;
+    }
+    
+    private int getGrade(int winCount){
+        int grade = -1; // -1 로 초기화
+        switch(winCount){
+            case 6:
+                grade = 1;
+                break;
+            case 5:
+                grade = 2;
+                break;
+            case 4:
+                grade = 3;
+                break;
+            case 3:
+                grade = 4;
+                break;
+            case 2:
+                grade = 5;
+                break;
+            default:
+                grade = 6;
+                break;
+        }
+        
+        return grade;
     }
 }

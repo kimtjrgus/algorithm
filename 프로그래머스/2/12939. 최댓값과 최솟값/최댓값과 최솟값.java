@@ -11,11 +11,6 @@ class Solution {
             min = Math.min(min, num);
         }
         
-        StringBuilder sb = new StringBuilder();
-        sb.append(min);
-        sb.append(" ");
-        sb.append(max);
-        
-        return sb.toString();
+        return min + " " + max;
     }
 }

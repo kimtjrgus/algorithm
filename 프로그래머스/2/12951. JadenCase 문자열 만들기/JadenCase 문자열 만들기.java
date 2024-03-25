@@ -27,7 +27,7 @@ class Solution {
             }
         }
         
-        // return answer.trim();
+        // return answer.trim(); -> 뒤의 공백을 전부 제거해서 X 
         if(s.substring(s.length()-1, s.length()).equals(" ")){
             return answer;
         }
@@ -35,4 +35,23 @@ class Solution {
         // 맨 마지막 " " 제거 후 반환
         return answer.substring(0, answer.length()-1);
     }  
+    
+    
+    // 다른 사람의 풀이
+    /* 공백으로 split하지않고, 글자별로 쪼개어서, 
+       띄어쓰기 다음 첫글자에 대문자가 오게끔 풀이함. 
+    {
+        String answer = "";
+        String[] sp = s.toLowerCase().split("");
+        boolean flag = true;
+
+        for(String ss : sp) {
+            answer += flag ? ss.toUpperCase() : ss;
+            flag = ss.equals(" ") ? true : false;
+        }
+
+        return answer;
+  }
+    
+    */
 }

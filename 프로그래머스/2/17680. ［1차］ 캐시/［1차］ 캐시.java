@@ -2,9 +2,9 @@ import java.util.*;
 
 class Solution {
     public int solution(int cacheSize, String[] cities) {
-        // 캐시사이즈를 얼마나 효율적으로 만들어야하는지 ?
+        // LRU 캐시 알고리즘 사용
         // 캐시크기에 따른 실행시간 측정 프로그램을 작성하시오.
-        int answer = 0;
+        int runTime = 0;
  
         // 1. 캐시크기가 0일 경우
         if (cacheSize == 0) {
@@ -17,7 +17,7 @@ class Solution {
             String city = cities[i].toLowerCase(); 
             // 2. cache miss
             if (!caches.contains(city)) {
-                answer += 5;
+                runTime += 5;
                 if (caches.size() >= cacheSize) {
                     // 2-1. 오래된 캐시 제거
                     caches.remove(0);
@@ -30,10 +30,10 @@ class Solution {
             if (caches.contains(city)) {
                 caches.remove(city);
                 caches.add(city);
-                answer += 1;
+                runTime += 1;
             }
         }
-        return answer;
+        return runTime;
         
     }
 }

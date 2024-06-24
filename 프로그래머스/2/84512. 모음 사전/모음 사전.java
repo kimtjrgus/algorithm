@@ -1,29 +1,39 @@
 import java.util.*;
+
 class Solution {
     List<String> dict;
     String[] alphabet = {"A", "E", "I", "O", "U"};
+    int targetIndex;
+    boolean found;
     
     public int solution(String word) {
-        dict = new ArrayList<>();
-        
-        dfs("");
-        
-        // 순번을 나타내야하므로 +1
-        return dict.indexOf(word) + 1;
+        dict = new ArrayList<>(3125); // 5^5 = 3125, 최대 크기 설정
+        found = false;
+
+        dfs("", word);
+
+        return targetIndex+1;
     }
     
-    private void dfs(String str){
-        // 빈 문자열이 아닌 경우에만 리스트에 추가
-        if (!str.isEmpty()) {
+    private void dfs(String str, String target) {
+        if (str.length() > 0) {
             dict.add(str);
+            if (str.equals(target)) {
+                targetIndex = dict.size() - 1;
+                found = true;
+                return;
+            }
         }
 
-        if(str.length() >= alphabet.length) {
+        if (str.length() >= 5 || found) {
             return;
         }
 
-        for (String a : alphabet) {
-            dfs(str + a);
+        for (String alpha : alphabet) {
+            dfs(str + alpha, target);
+            if (found) {
+                return;
+            }
         }
     }
 }

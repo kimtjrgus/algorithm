@@ -3,35 +3,34 @@ import java.util.*;
 class Solution {
     public String[] solution(String[] record) {
         Map<String, String> idMap = new HashMap<>(); // (아이디 - 닉네임) Map
-        int count = 0; // 메시지에 뿌려지지 않을 경우(Change일 때) 카운트
-        
-        for(int i = 0; i < record.length; i++){
-            String[] info = record[i].split(" ");
+        List<String> messages = new ArrayList<>();  // 최종 메시지를 저장할 리스트
+
+        // 첫 번째 루프: 최신 닉네임으로 맵 업데이트
+        for (String rec : record) {
+            String[] info = rec.split(" ");
+            String action = info[0];
+            String userId = info[1];
             
-            if(info[0].equals("Leave")){        // 나가는 경우
-                continue;
-            } else if(info[0].equals("Enter")){ // 들어오는 경우
-                idMap.put(info[1], info[2]);
-            } else {                            // 닉네임을 변경하는 경우
-                idMap.put(info[1], info[2]);
-                count++;
+            if (action.equals("Enter") || action.equals("Change")) {
+                String nickname = info[2];
+                idMap.put(userId, nickname);
             }
         }
-        
-        String[] answer = new String[record.length - count];
-        int idx = 0;
-        
-        for(int i = 0; i < record.length; i++){
-            String[] info = record[i].split(" ");
-            String nickname = idMap.get(info[1]);
+
+        // 두 번째 루프: 최종 메시지 생성
+        for (String rec : record) {
+            String[] info = rec.split(" ");
+            String action = info[0];
+            String userId = info[1];
+            String nickname = idMap.get(userId);
             
-            if(info[0].equals("Enter")){                      // 들어오는 경우
-                answer[idx++] = nickname + "님이 들어왔습니다.";
-            } else if(info[0].equals("Leave")){               // 나가는 경우
-                answer[idx++] = nickname + "님이 나갔습니다.";
+            if (action.equals("Enter")) {
+                messages.add(nickname + "님이 들어왔습니다.");
+            } else if (action.equals("Leave")) {
+                messages.add(nickname + "님이 나갔습니다.");
             }
         }
-        
-        return answer;
+
+        return messages.toArray(new String[0]);
     }
 }

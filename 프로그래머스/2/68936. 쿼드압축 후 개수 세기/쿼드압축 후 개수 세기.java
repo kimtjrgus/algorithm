@@ -18,7 +18,7 @@ class Solution {
             else answer[1]++; 
         }
         else { // 배열이 같은 값으로 이루어져 있지 않으면 4분할
-            int newSize = size / 2;
+            int newSize = size / 2; // 4분할시 길이는 1/2
             quadTree(arr, x, y, newSize, answer);
             quadTree(arr, x, y + newSize, newSize, answer);
             quadTree(arr, x + newSize, y, newSize, answer);

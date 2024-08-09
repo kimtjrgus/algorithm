@@ -2,37 +2,40 @@ import java.util.HashSet;
 import java.util.Set;
 
 class Solution {
-    static Set<Integer> set;
-    static boolean[] visited = new boolean[7]; 
- 
-    // numbers는 길이 1 이상 7 이하인 문자열
     public int solution(String numbers) {
         int answer = 0;
-        set = new HashSet<>();
-        dfs(numbers, "", 0);
- 
-        for (Integer num : set) {
+        
+        // 중복 방지를 위해 Set을 사용하여 순열을 저장
+        Set<Integer> permutations = new HashSet<>();
+        
+        // 모든 순열을 생성
+        permutation("", numbers, permutations);
+        
+        // 생성된 순열 중에서 소수를 판별하여 개수를 센다
+        for (int num : permutations) {
             if (isPrime(num)) {
                 answer++;
             }
         }
+        
         return answer;
     }
     
-    // 숫자조각으로 완전 탐색 메서드
-    private void dfs(String numbers, String s, int depth) {
-		// numbers 의 끝까지 다 탐색했다면 종료
-        if (depth > numbers.length()) {
-            return;
+    // 숫자 조각으로 순열을 생성하는 메서드
+    private void permutation(String prefix, String numbers, Set<Integer> set) {
+        int n = numbers.length();
+        
+        // prefix가 비어있지 않으면 정수로 변환하여 Set에 추가
+        if (!prefix.equals("")) {
+            set.add(Integer.parseInt(prefix));
         }
- 
-        for (int i = 0; i < numbers.length(); i++) {
-            if(!visited[i]) {
-                visited[i] = true;
-                set.add(Integer.parseInt(s + numbers.charAt(i)));
-                dfs(numbers ,s + numbers.charAt(i), depth + 1);
-                visited[i] = false;
-            }
+
+        // 재귀적으로 순열을 생성
+        for (int i = 0; i < n; i++) {
+            // 현재 문자를 추가하고, 나머지 문자들로 재귀 호출
+            permutation(prefix + numbers.charAt(i), 
+                        numbers.substring(0, i) + numbers.substring(i + 1, n), 
+                        set);
         }
     }
     

@@ -3,39 +3,32 @@ import java.util.Set;
 
 class Solution {
     public int solution(String numbers) {
-        int answer = 0;
-        
-        // 중복 방지를 위해 Set을 사용하여 순열을 저장
-        Set<Integer> permutations = new HashSet<>();
-        
-        // 모든 순열을 생성
-        permutation("", numbers, permutations);
-        
-        // 생성된 순열 중에서 소수를 판별하여 개수를 센다
-        for (int num : permutations) {
+        Set<Integer> primes = new HashSet<>();
+        boolean[] visited = new boolean[numbers.length()];
+
+        // DFS를 통해 모든 숫자 조합을 탐색
+        dfs("", numbers, visited, primes);
+
+        return primes.size();  // 찾은 소수의 개수를 반환
+    }
+
+    // DFS를 사용하여 숫자 조합을 생성하면서 소수 판별
+    private void dfs(String current, String numbers, boolean[] visited, Set<Integer> primes) {
+        // 중간에 소수인지 확인하고, 소수이면 Set에 추가
+        if (!current.equals("")) {
+            int num = Integer.parseInt(current);
             if (isPrime(num)) {
-                answer++;
+                primes.add(num);
             }
         }
-        
-        return answer;
-    }
-    
-    // 숫자 조각으로 순열을 생성하는 메서드
-    private void permutation(String prefix, String numbers, Set<Integer> set) {
-        int n = numbers.length();
-        
-        // prefix가 비어있지 않으면 정수로 변환하여 Set에 추가
-        if (!prefix.equals("")) {
-            set.add(Integer.parseInt(prefix));
-        }
 
-        // 재귀적으로 순열을 생성
-        for (int i = 0; i < n; i++) {
-            // 현재 문자를 추가하고, 나머지 문자들로 재귀 호출
-            permutation(prefix + numbers.charAt(i), 
-                        numbers.substring(0, i) + numbers.substring(i + 1, n), 
-                        set);
+        // DFS로 모든 조합을 생성
+        for (int i = 0; i < numbers.length(); i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                dfs(current + numbers.charAt(i), numbers, visited, primes);
+                visited[i] = false;  // 백트래킹
+            }
         }
     }
     

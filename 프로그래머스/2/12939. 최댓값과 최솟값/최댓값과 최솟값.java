@@ -1,16 +1,26 @@
 class Solution {
     public String solution(String s) {
-        // s.split 후 최대값 최소값 구하기
-        int max = Integer.MIN_VALUE;
+        String answer = "";
+        
+        // 1. 배열 생성
+        String[] numbers = s.split(" ");
+        
+        // 2. min max 탐색
         int min = Integer.MAX_VALUE;
-        String[] arr = s.split(" ");
+        int max = Integer.MIN_VALUE;
         
-        for(String a : arr){
-            int num = Integer.parseInt(a);
-            max = Math.max(max, num);
-            min = Math.min(min, num);
+        for (String num : numbers) {
+            int n = Integer.parseInt(num);
+            if (n < min) {
+                min = n;
+            }
+            if (n > max) {
+                max = n;
+            }
         }
+        // 3. 문자열 생성
+        answer = min + " " + max;
         
-        return min + " " + max;
+        return answer;
     }
 }

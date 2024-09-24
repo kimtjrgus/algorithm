@@ -6,11 +6,11 @@ class Solution {
         String[] numbers = s.split(" ");
         
         // 2. min max 탐색
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
+        int min = Integer.parseInt(numbers[0]);
+        int max = min;
         
-        for (String num : numbers) {
-            int n = Integer.parseInt(num);
+        for (int i = 1; i < numbers.length; i++) {
+            int n = Integer.parseInt(numbers[i]);
             if (n < min) {
                 min = n;
             }
@@ -18,6 +18,7 @@ class Solution {
                 max = n;
             }
         }
+        
         // 3. 문자열 생성
         answer = min + " " + max;
         

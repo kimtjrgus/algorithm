@@ -2,42 +2,53 @@ import java.util.*;
 
 class Solution {
     public long solution(String expression) {
-        // 1. 연산자 추출 및 순열 생성
-        List<String> operators = new ArrayList<>();
+        // 1. 연산자 추출
+        Set<String> operatorSet = new HashSet<>();
         for (char c : expression.toCharArray()) {
             if (c == '+' || c == '-' || c == '*') {
-                if (!operators.contains(String.valueOf(c))) operators.add(String.valueOf(c));
+                operatorSet.add(String.valueOf(c));
             }
         }
-        List<List<String>> permutations = getPermutations(operators);
-
+        
+        // 2. 연산자 순열 생성
+        List<String> operators = new ArrayList<>(operatorSet);
+        List<List<String>> operatorPermutations = new ArrayList<>();
+        permute(operators, 0, operatorPermutations);
+        
         // 숫자와 연산자 분리
         List<Long> numbers = new ArrayList<>();
         List<String> ops = new ArrayList<>();
-        String num = "";
-        for (char c : expression.toCharArray()) {
+        
+        StringBuilder number = new StringBuilder();
+        for (int i = 0; i < expression.length(); i++) {
+            char c = expression.charAt(i);
             if (Character.isDigit(c)) {
-                num += c;
+                number.append(c);
             } else {
-                numbers.add(Long.parseLong(num));
+                numbers.add(Long.parseLong(number.toString()));
+                number = new StringBuilder();
                 ops.add(String.valueOf(c));
-                num = "";
             }
         }
-        numbers.add(Long.parseLong(num));
-
+        numbers.add(Long.parseLong(number.toString())); // 마지막 숫자 추가
+        
         long maxResult = 0;
-
-        // 2. 우선순위 경우의 수마다 연산 수행
-        for (List<String> priority : permutations) {
+        
+        // 3. 우선순위 경우의 수마다 연산 수행
+        for (List<String> priority : operatorPermutations) {
             List<Long> tempNumbers = new ArrayList<>(numbers);
-            List<String> tempOps = new ArrayList<>(ops);
+            List<String> tempOperators = new ArrayList<>(ops);
+            
             for (String op : priority) {
-                for (int i = 0; i < tempOps.size(); ) {
-                    if (tempOps.get(i).equals(op)) {
-                        long result = calculate(tempNumbers.remove(i), tempNumbers.remove(i), op);
-                        tempNumbers.add(i, result);
-                        tempOps.remove(i);
+                for (int i = 0; i < tempOperators.size();) {
+                    if (tempOperators.get(i).equals(op)) {
+                        long num1 = tempNumbers.get(i);
+                        long num2 = tempNumbers.get(i + 1);
+                        long result = calculate(num1, num2, op);
+                        
+                        tempNumbers.remove(i + 1);
+                        tempNumbers.set(i, result);
+                        tempOperators.remove(i);
                     } else {
                         i++;
                     }
@@ -45,34 +56,33 @@ class Solution {
             }
             maxResult = Math.max(maxResult, Math.abs(tempNumbers.get(0)));
         }
-
+        
         return maxResult;
     }
-
+    
     // 순열 생성 함수
-    private List<List<String>> getPermutations(List<String> operators) {
-        List<List<String>> result = new ArrayList<>();
-        if (operators.isEmpty()) return result;
-        permute(operators, 0, result);
-        return result;
-    }
-
-    // 순열 로직
-    private void permute(List<String> arr, int index, List<List<String>> result) {
-        if (index == arr.size()) {
-            result.add(new ArrayList<>(arr));
+    private void permute(List<String> arr, int k, List<List<String>> permutations) {
+        if (k == arr.size()) {
+            permutations.add(new ArrayList<>(arr));
         } else {
-            for (int i = index; i < arr.size(); i++) {
-                Collections.swap(arr, i, index);
-                permute(arr, index + 1, result);
-                Collections.swap(arr, i, index); // 원상복구
+            for (int i = k; i < arr.size(); i++) {
+                Collections.swap(arr, i, k);
+                permute(arr, k + 1, permutations);
+                Collections.swap(arr, i, k); // 복구
             }
         }
     }
-
-    // 연산 수행
+    
+    // 두 숫자와 연산자를 받아서 계산
     private long calculate(long num1, long num2, String op) {
-        return op.equals("+") ? num1 + num2 :
-               op.equals("-") ? num1 - num2 : num1 * num2;
+        switch (op) {
+            case "+":
+                return num1 + num2;
+            case "-":
+                return num1 - num2;
+            case "*":
+                return num1 * num2;
+        }
+        return 0;
     }
 }

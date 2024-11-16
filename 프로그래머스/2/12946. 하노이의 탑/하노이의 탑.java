@@ -12,18 +12,17 @@ class Solution { // 하노이의 탑 재귀용법
     }
     
     // from은 시작, by는 거쳐가는 기둥, to는 도착지 기둥
-    public int[][] hanoi(int n, 
+    public void hanoi(int n, 
                          int from, int by, int to, 
                          int[][] answer) {
         if(n==1) {
             answer[index++] = new int[] { from, to };
+            return;
         } 
         else {
             hanoi(n-1, from, to, by, answer); // 1->3->2
             answer[index++] = new int[] { from, to };
             hanoi(n-1, by, from, to, answer); // 2->1->3
         }
-        
-        return answer;
     }
 }

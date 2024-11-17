@@ -27,9 +27,8 @@ class Solution {
         double[] answer = new double[ranges.length];
         for (int i = 0; i < ranges.length; i++) {
             int a = ranges[i][0];
-            int b = n + ranges[i][1]; // 음수 b는 우박수열의 끝에서부터 계산
+            int b = n + ranges[i][1];
             
-            // 유효성 검사
             if (a > b) {
                 answer[i] = -1.0;
             } else {

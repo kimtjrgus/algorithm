@@ -3,39 +3,41 @@ import java.util.*;
 class Solution {
     public String[] solution(String[][] plans) {
         // 1. 시작시간을 분 단위로 변환하고 정렬
-        Arrays.sort(plans, (a, b) -> timeToMinutes(a[1]) - timeToMinutes(b[1]));
+        Arrays.sort(plans, (a, b) -> 
+                    timeToMinutes(a[1]) - timeToMinutes(b[1]));
 
         List<String> answer = new ArrayList<>();
-        Stack<String[]> stack = new Stack<>(); // 변수명 추가
-        int current_time = 0; // 현재 시간 (분 단위)
+        Stack<String[]> stack = new Stack<>();
+        int curTime = 0; // 현재 시간 (분 단위)
 
         // 2. 과제 진행
         for (String[] plan : plans) {
             String name = plan[0];
-            int start_time = timeToMinutes(plan[1]);
-            int playtime = Integer.parseInt(plan[2]);
+            int startTime = timeToMinutes(plan[1]);
+            int playTime = Integer.parseInt(plan[2]);
 
             // 3. 새 과제가 들어올 경우
-            while (!stack.isEmpty() && current_time < start_time) {
+            while (!stack.isEmpty() && curTime < startTime) {
                 String[] task = stack.pop();
-                String task_name = task[0];
-                int remaining_time = Integer.parseInt(task[1]);
+                String taskName = task[0];
+                int remainTime = Integer.parseInt(task[1]);
 
-                if (current_time + remaining_time <= start_time) {
+                if (curTime + remainTime <= startTime){
                     // 과제를 끝낼 수 있음
-                    current_time += remaining_time;
-                    answer.add(task_name);
-                } else {
+                    curTime += remainTime;
+                    answer.add(taskName);
+                } 
+                else{
                     // 과제를 끝내지 못하고 다시 멈춤
-                    remaining_time -= (start_time - current_time);
-                    stack.push(new String[] { task_name, String.valueOf(remaining_time) });
+                    remainTime -= (startTime - curTime);
+                    stack.push(new String[]{taskName, String.valueOf(remainTime)});
                     break;
                 }
             }
 
             // 새로운 과제 시작
-            stack.push(new String[] { name, String.valueOf(playtime) });
-            current_time = start_time;
+            stack.push(new String[]{name, String.valueOf(playTime)});
+            curTime = startTime;
         }
 
         // 4. 스택에 남은 과제들 처리

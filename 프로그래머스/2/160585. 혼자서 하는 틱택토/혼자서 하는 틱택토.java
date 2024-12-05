@@ -3,21 +3,14 @@ class Solution {
         int oCount = 0;
         int xCount = 0;
         
-        // 1. O와 X의 개수가 동일하거나 O가 1개더 많아야함.
+        // 1. O와 X의 개수가 동일하거나 O가 1개 더 많아야함.
         for(String str: board){
             for(char cell: str.toCharArray()){
-                if (cell == 'O') {
-                    oCount++;
-                } else if (cell == 'X') {
-                    xCount++;
-                }
+                if (cell == 'O') oCount++;
+                else if (cell == 'X') xCount++;
             }
         }
-        
-        // 2. O가 선공이므로 O의 개수가 X보다 1개 더 많거나 같아야 함
-        if(!(oCount == xCount || oCount == xCount+1)){
-            return 0;
-        }
+        if(!(oCount == xCount || oCount == xCount+1)) return 0;
         
         boolean oWins = isValid(board, 'O');
         boolean xWins = isValid(board, 'X');

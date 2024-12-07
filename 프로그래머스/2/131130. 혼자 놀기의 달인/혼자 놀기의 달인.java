@@ -2,7 +2,6 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] cards) {
-        int answer = 0;
         // 1. visited배열, 그룹리스트 생성
         boolean[] visited = new boolean[cards.length];
         List<Integer> groupSize = new ArrayList<>();
@@ -30,8 +29,7 @@ class Solution {
         // groupSize 내림차순 정렬
         groupSize.sort(Collections.reverseOrder());
         
-        if(groupSize.size() < 2) return 0;
-        else return groupSize.get(0) * groupSize.get(1); 
+        return (groupSize.size()<2) ? 0 : groupSize.get(0)*groupSize.get(1);
     }
 }
 

@@ -1,27 +1,26 @@
+import java.util.*;
+
 class Solution {
     public String solution(String s) {
-        String answer = "";
+        // 1. 공백문자로 split
+        String[] str = s.split(" ");
         
-        // 1. 배열 생성
-        String[] numbers = s.split(" ");
+        // 2. 초기 최소값과 최대값 설정
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
         
-        // 2. min max 탐색
-        int min = Integer.parseInt(numbers[0]);
-        int max = min;
-        
-        for (int i = 1; i < numbers.length; i++) {
-            int n = Integer.parseInt(numbers[i]);
-            if (n < min) {
-                min = n;
-            }
-            if (n > max) {
-                max = n;
-            }
+        // 3. 숫자들을 순회하며 최소값, 최대값 갱신
+        for (String numStr : str) {
+            int num = Integer.parseInt(numStr);
+            min = Math.min(min, num);
+            max = Math.max(max, num);
         }
         
-        // 3. 문자열 생성
-        answer = min + " " + max;
-        
-        return answer;
+        return min + " " + max;
     }
 }
+
+/*
+1. string값을 split하고 int배열에 오름차순 정렬
+2. 최소값과 최대값 형태로 StringBuilder 사용
+*/

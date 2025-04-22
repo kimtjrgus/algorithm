@@ -10,7 +10,12 @@ class Solution {
         this.n = n;
         this.qGlobal = q;
         this.ansGlobal = ans;
-
+        
+        
+        // 1. 비밀코드로 만들 1~n 사이 정수 5개를 뽑아 조합 생성
+        // 2. 생성된 조합을 2차원배열 q와 ans배열 값 비교
+        // 3. 2번 조건에 적합하다면 answer++
+        
         List<Integer> current = new ArrayList<>();
         comb(1, current);
 
@@ -35,6 +40,7 @@ class Solution {
 
     // q, ans 조건을 만족하는지 검사
     boolean isValid(List<Integer> comb) {
+        // set을 사용해 중복을 제거
         Set<Integer> codeSet = new HashSet<>(comb);
 
         for (int i = 0; i < qGlobal.length; i++) {
@@ -51,8 +57,3 @@ class Solution {
         return true;
     }
 }
-
-// 1. 비밀코드로 만들 1~n 사이 정수 5개를 뽑아 조합 생성
-// 2. 생성된 조합을 2차원배열 q와 ans배열 값 비교
-// 3. 2번 조건에 적합하다면 answer++
-        

@@ -2,12 +2,10 @@ class Solution {
     public int solution(int n) {
         int answer = 0;
         
-        if(n % 2 !=0) n= n-1;
+        if(n % 2 !=0) n--;
         
-        for(int i=n; i>0; i=i-2){
-            answer+=i;
-        }
-        
-        return answer;
+        // 등차수열 합 공식 사용
+        int m = n / 2;
+        return m * (m + 1);
     }
 }

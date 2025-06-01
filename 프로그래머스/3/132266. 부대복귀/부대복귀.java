@@ -4,7 +4,7 @@ class Solution {
     public int[] solution(int n, int[][] roads, 
                           int[] sources, int destination) {
         // 1. 그래프 초기화
-        List<List<Integer>> graph = new ArrayList<>();
+        List<List<Integer>> graph = new ArrayList<>(n+1);
         for (int i = 0; i <= n; i++) {
             graph.add(new ArrayList<>());
         }
